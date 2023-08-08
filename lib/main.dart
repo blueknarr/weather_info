@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather_info/presentation/main/main_screen.dart';
+import 'package:weather_info/di/di_setup.dart';
 
 import 'core/router/router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  configureDependencies();
   runApp(const MyApp());
 }
 

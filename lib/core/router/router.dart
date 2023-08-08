@@ -1,27 +1,30 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_info/data/api/weather_api_impl.dart';
-import 'package:weather_info/data/repository/weather_repository_impl.dart';
+import 'package:weather_info/presentation/detail/detail_screen.dart';
 import 'package:weather_info/presentation/main/main_screen.dart';
 import 'package:weather_info/presentation/main/main_view_model.dart';
 
-import '../../domain/use_case/get_weather_info_use_case.dart';
+import '../../data/dto/weather_dto.dart';
+import '../../di/di_setup.dart';
 
 // GoRouter configuration
 final router = GoRouter(
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => MainViewModel(
-            GetWeatherInfoUseCase(
-              WeatherRepositoryImpl(WeatherApiImpl()),
-            ),
-          ),
+          create: (_) => getIt.get<MainViewModel>(),
           child: const MainScreen(),
         );
       },
     ),
+    GoRoute(
+        path: '/detail',
+        builder: (context, state) {
+          final forecastDay = state.extra as Forecastday;
+          return DetailScreen(forecastDay: forecastDay);
+        }),
   ],
 );

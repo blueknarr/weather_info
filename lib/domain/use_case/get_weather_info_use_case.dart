@@ -1,14 +1,16 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../core/result/result.dart';
 import '../../data/repository/weather_repository_impl.dart';
 import '../model/weather.dart';
 
+@singleton
 class GetWeatherInfoUseCase {
-  final WeatherRepositoryImpl _repository;
+  final WeatherRepositoryImpl repository;
 
-  GetWeatherInfoUseCase(this._repository);
+  GetWeatherInfoUseCase(this.repository);
 
   Future<Result<Weather>> execute(String city, int day) async {
     try {
@@ -40,7 +42,7 @@ class GetWeatherInfoUseCase {
 
         city = placemarks.first.administrativeArea!;
       }
-      final weatherInfo = await _repository.getWeatherInfo(city, day);
+      final weatherInfo = await repository.getWeatherInfo(city, day);
       return Result.success(weatherInfo);
     } catch (e) {
       return const Result.error('네트워크 문제로 날씨 정보를 가져오지 못했습니다.');

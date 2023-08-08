@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_info/presentation/main/main_ui_event.dart';
 import 'package:weather_info/presentation/main/main_view_model.dart';
@@ -206,7 +207,9 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           ...state.forecastDay.map((e) {
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                context.push('/detail', extra: e);
+                              },
                               child: Column(
                                 children: [
                                   Text(e.date

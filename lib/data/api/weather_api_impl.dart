@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
 import 'package:weather_info/data/dto/weather_dto.dart';
 import 'package:weather_info/domain/api/weather_api.dart';
 import 'package:http/http.dart' as http;
 
+@singleton
 class WeatherApiImpl implements WeatherApi {
   @override
   Future<WeatherDto> getWeatherInfo(String city, int day) async {

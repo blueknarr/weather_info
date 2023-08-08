@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../core/result/result.dart';
 import '../../domain/use_case/get_weather_info_use_case.dart';
 import 'main_state.dart';
 import 'main_ui_event.dart';
 
+@injectable
 class MainViewModel with ChangeNotifier {
   final GetWeatherInfoUseCase _getWeatherInfoUseCase;
 
