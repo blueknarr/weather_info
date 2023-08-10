@@ -1,14 +1,13 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/result/result.dart';
-import '../../data/repository/weather_repository_impl.dart';
 import '../model/weather.dart';
+import '../repository/weather_repository.dart';
 
 @singleton
 class GetWeatherInfoUseCase {
-  final WeatherRepositoryImpl repository;
+  final WeatherRepository repository;
 
   GetWeatherInfoUseCase(this.repository);
 
@@ -37,10 +36,7 @@ class GetWeatherInfoUseCase {
 
       if (city.isEmpty) {
         Position currentPosition = await Geolocator.getCurrentPosition();
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-            currentPosition.latitude, currentPosition.longitude);
-
-        city = placemarks.first.administrativeArea!;
+        city = '${currentPosition.latitude},${currentPosition.longitude}';
       }
       final weatherInfo = await repository.getWeatherInfo(city, day);
       return Result.success(weatherInfo);
