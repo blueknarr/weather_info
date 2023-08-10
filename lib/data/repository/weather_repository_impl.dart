@@ -4,7 +4,7 @@ import 'package:weather_info/data/mapper/weather_mapper.dart';
 import 'package:weather_info/domain/model/weather.dart';
 import 'package:weather_info/domain/repository/weather_repository.dart';
 
-@singleton
+@Singleton(as: WeatherRepository)
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherApiImpl api;
 
